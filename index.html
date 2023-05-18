@@ -3,6 +3,7 @@
   <head>
     <title>ABCjs Sheet Music Demo</title>
     <script src="abcjs-basic.js"></script>
+    <script src="abcjs-audio.css"></script>
   </head>
   <body>
     <div id="paper"></div>
@@ -25,12 +26,10 @@
         "L:1/4\n" +
         "K:C\n" +
         "|: A E E E | E E E E |]";
-
       var visualOptions = {
         responsive: "resize",
         clickListener: clickListener,
         add_classes: true,
-        jazzchords: true,
       };
       var visualObj = ABCJS.renderAbc("paper", abcString, visualOptions);
 
@@ -149,17 +148,6 @@
             self.cursor.setAttribute("y1", ev.top);
             self.cursor.setAttribute("y2", ev.top + ev.height);
           }
-
-          if (ev.measureStart) {
-            var elements = document.querySelectorAll(
-              ".abcjs-mm" + ev.measureNumber
-            );
-            for (var j = 0; j < elements.length; j++) {
-              const element = elements[j];
-              if (!element.classList.contains("abcjs-bar"))
-                element.classList.add("hide-note");
-            }
-          }
         };
         self.onFinished = function () {
           self.removeSelection();
@@ -169,12 +157,6 @@
             self.cursor.setAttribute("x2", 0);
             self.cursor.setAttribute("y1", 0);
             self.cursor.setAttribute("y2", 0);
-          }
-
-          var elements = document.querySelectorAll(".hide-note");
-          for (var j = 0; j < elements.length; j++) {
-            const element = elements[j];
-            element.classList.remove("hide-note");
           }
         };
       }
@@ -198,4 +180,15 @@
       }
     </script>
   </body>
+  <link rel="stylesheet" type="text/css" href="abcjs-audio.css" />
+  <style>
+    .clicked-info {
+      height: 200px;
+    }
+    .instructions {
+      color: red;
+      font-size: 2em;
+      font-style: italic;
+    }
+  </style>
 </html>
